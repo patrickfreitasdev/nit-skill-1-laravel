@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\{LoginController, LogoutController};
 use App\Http\Controllers\Pages\{AboutUsController, EventController, HomeController, LoginPageController};
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\{Route};
@@ -26,5 +26,9 @@ Route::middleware(['auth'])->group(function () {
 
     #region Event logged in Routes
     Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
+    #endregion
+
+    #region Auth Logged in Routes
+    Route::post('/logout', LogoutController::class)->name('auth.logout');
     #endregion
 });

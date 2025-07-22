@@ -23,6 +23,17 @@ it("Should be able to login", function () {
 
 });
 
+it("Should be able to logout", function () {
+
+    $user = User::factory()->create();
+
+    actingAs($user);
+
+    post(route('auth.logout'))->assertRedirect(route('login'));
+    get(route('home.index'))->assertRedirect(route('login'));
+
+});
+
 it('Should list users on the home page', function () {
 
     $users = User::factory()->count(10)->create([
