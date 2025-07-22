@@ -9,16 +9,21 @@
 
         <div class="row">
             <div class="col-12">
-                <form id="login-form" role="form">
+                <form id="login-form" role="form" action="{{ route('auth.login') }}" method="POST">
+                    @csrf
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter email">
-                        <span class="text-danger login-error d-block mt-1 mb-1">Something went wrong</span>
+                        <input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
+                        @error('email')
+                            <span class="text-danger login-error d-block mt-1 mb-1">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Enter password">
-                        <span class="text-danger login-error d-block mt-1 mb-1">Something went wrong</span>
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Enter password">
+                        @error('password')
+                            <span class="text-danger login-error d-block mt-1 mb-1">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="d-flex justify-content-center">
                         <button type="submit" class="btn primary-btn-outline">Login</button>

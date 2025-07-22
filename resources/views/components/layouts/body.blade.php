@@ -35,11 +35,13 @@
                                 </ul>
                             </div>
                             <div class="navbar-btn d-none d-sm-inline-block">
-                                <ul>
-                                    <li>
-                                        <a class="btn primary-btn-outline" href="#">Logout</a>
-                                    </li>
-                                </ul>
+                                @if(user())
+                                    <ul>
+                                        <li>
+                                            <a class="btn primary-btn-outline" href="#">Logout</a>
+                                        </li>
+                                    </ul>
+                                @endif
                             </div>
                         </nav>
                         <!-- navbar -->

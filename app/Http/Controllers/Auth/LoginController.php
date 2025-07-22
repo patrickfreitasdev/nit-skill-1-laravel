@@ -4,19 +4,31 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\{RedirectResponse, Request};
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
-    public function index(): View|RedirectResponse
+    public function __invoke(Request $request): RedirectResponse
     {
-        if (user()) {
-            return redirect()->route('home.index')->with('success', 'You are already logged in!');
+
+        $request->validate([
+            'email'    => 'required|email',
+            'password' => 'required',
+        ]);
+
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+
+            $request->session()->regenerate();
+
+            return redirect()->route('home.index');
+
         }
 
-        return view('login');
+        return redirect()->route('login')->withErrors([
+            'email' => 'The the provided credentials are wrong or invalid user, try again or contact support.',
+        ]);
+
     }
 }
