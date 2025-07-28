@@ -20,15 +20,33 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
 
+            /** For now only admins can get access */
+            if (!user()->isAdmin()) {
+
+                $notification = [
+                    'message'    => 'Error logging in, try again or contact support.',
+                    'alert-type' => 'error',
+                ];
+
+                return redirect()->route('login')->withErrors([
+                    'email' => 'The the provided credentials are wrong or invalid user, try again or contact support.',
+                ])->with($notification);
+            }
+
             $request->session()->regenerate();
 
             return redirect()->route('home.index');
 
         }
 
+        $notification = [
+            'message'    => 'Error logging in, try again or contact support.',
+            'alert-type' => 'error',
+        ];
+
         return redirect()->route('login')->withErrors([
             'email' => 'The the provided credentials are wrong or invalid user, try again or contact support.',
-        ]);
+        ])->with($notification);
 
     }
 }

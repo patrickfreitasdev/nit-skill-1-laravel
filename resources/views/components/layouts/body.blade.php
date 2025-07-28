@@ -38,7 +38,10 @@
                                 @if(user())
                                     <ul>
                                         <li>
-                                            <a class="btn primary-btn-outline" href="#">Logout</a>
+                                            <form action="{{ route('auth.logout') }}" method="POST" onsubmit="return confirm('Are you sure you want to logout?')">
+                                                @csrf
+                                                <button class="btn primary-btn-outline logout-button">Logout</button>
+                                            </form>
                                         </li>
                                     </ul>
                                 @endif

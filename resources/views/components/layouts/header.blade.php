@@ -20,4 +20,11 @@
     <link rel="stylesheet" href="https://cdn.ayroui.com/1.0/css/starter.css" />
 
     <link rel="stylesheet" href="{{ asset('css/app.css')  }}">
+
+    <!--====== Toast css ======-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+    <!--====== International phone css ======-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/css/intlTelInput.css">
+
 </head>

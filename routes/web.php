@@ -3,9 +3,13 @@
 use App\Http\Controllers\Auth\{LoginController, LogoutController};
 use App\Http\Controllers\Pages\{AboutUsController, EventController, HomeController, LoginPageController};
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\AdminOnlyAccess;
 use Illuminate\Support\Facades\{Route};
 
+#region Regular Page Routes
+Route::get('/', HomeController::class)->name('home.index');
 Route::get('/about-us', AboutUsController::class)->name('about.index');
+#endregion
 
 #region Event Logged Out Routes
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
@@ -16,11 +20,11 @@ Route::get('/login', LoginPageController::class)->name('login');
 Route::post('/login', LoginController::class)->name('auth.login');
 #endregion
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/', HomeController::class)->name('home.index');
+Route::middleware(['auth', AdminOnlyAccess::class])->group(function () {
 
     #region User Routes
     Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
+    Route::post('/user', [UserController::class, 'store'])->name('user.store');
     Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
     #endregion
 
@@ -31,4 +35,5 @@ Route::middleware(['auth'])->group(function () {
     #region Auth Logged in Routes
     Route::post('/logout', LogoutController::class)->name('auth.logout');
     #endregion
+
 });

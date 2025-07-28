@@ -2,12 +2,13 @@
 
 use App\Models\User;
 
+use Illuminate\Support\Facades\Hash;
+
 use function Pest\Laravel\{actingAs, get, post};
 
-it("Should be able to login", function () {
+it("Should be able to login as admin", function () {
 
-    User::factory()->create([
-        'email'             => 'test@user.com',
+    $adminUser = User::factory()->create([
         'email_verified_at' => now(),
         'password'          => bcrypt('password'),
     ]);
@@ -16,10 +17,27 @@ it("Should be able to login", function () {
 
     $result = post(route('auth.login'), [
         'password' => 'password',
-        'email'    => 'test@user.com',
+        'email'    => $adminUser->email,
     ]);
 
     $result->assertRedirect(route('home.index'));
+
+});
+
+it("Should not be able to login as member", function () {
+
+    $memberUser = User::factory()->create([
+        'role'     => 'member',
+        'password' => bcrypt('password'),
+    ]);
+
+    $result = post(route('auth.login'), [
+        'password' => 'password',
+        'email'    => $memberUser->email,
+    ]);
+
+    $result->assertRedirect(route('login'));
+    $result->assertSessionHasErrors('email');
 
 });
 
@@ -31,6 +49,27 @@ it("Should be able to logout", function () {
 
     post(route('auth.logout'))->assertRedirect(route('login'));
     get(route('home.index'))->assertRedirect(route('login'));
+
+});
+
+it('Should be able to register a new user', function () {
+
+    $user    = User::factory()->create();
+    $newUser = [
+        'name'          => fake()->name(),
+        'email'         => fake()->unique()->safeEmail(),
+        'phone'         => fake()->phoneNumber(),
+        'address'       => fake()->address(),
+        'password'      => Hash::make('password'),
+        'date_of_birth' => fake()->dateTimeBetween('-80 years', '-16 years')->format('Y-m-d'),
+    ];
+
+    actingAs($user);
+
+    get(route('user.create'))->assertSuccessful();
+
+    post(route('user.store'), $newUser)
+       ->assertRedirect(route('home.index'));
 
 });
 
