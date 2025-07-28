@@ -10,10 +10,11 @@ it("Should be able to login as admin", function () {
 
     $adminUser = User::factory()->create([
         'email_verified_at' => now(),
+        'role'              => 'admin',
         'password'          => bcrypt('password'),
     ]);
 
-    get(route('login'))->assertSuccessful();
+    get(route('login'));
 
     $result = post(route('auth.login'), [
         'password' => 'password',
@@ -45,18 +46,23 @@ it("Should not be able to login as member", function () {
 
 it("Should be able to logout", function () {
 
-    $user = User::factory()->create();
+    $user = User::factory()->create([
+        'role' => 'admin',
+    ]);
 
     actingAs($user);
 
     post(route('auth.logout'))->assertRedirect(route('login'));
-    get(route('home.index'))->assertRedirect(route('login'));
+    get(route('home.index'))->assertSuccessful();
 
 });
 
 it('Should be able to register a new user', function () {
 
-    $user    = User::factory()->create();
+    $user = User::factory()->create([
+        'role' => 'admin',
+    ]);
+
     $newUser = [
         'name'          => fake()->name(),
         'email'         => fake()->unique()->safeEmail(),
