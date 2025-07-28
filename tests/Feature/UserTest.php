@@ -66,7 +66,7 @@ it('Should be able to register a new user', function () {
     $newUser = [
         'name'          => fake()->name(),
         'email'         => fake()->unique()->safeEmail(),
-        'phone'         => fake()->phoneNumber(),
+        'phone'         => fake()->e164PhoneNumber(),
         'address'       => fake()->address(),
         'password'      => Hash::make('password'),
         'date_of_birth' => fake()->dateTimeBetween('-80 years', '-16 years')->format('Y-m-d'),
