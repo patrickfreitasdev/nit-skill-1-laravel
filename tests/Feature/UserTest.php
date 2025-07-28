@@ -31,6 +31,8 @@ it("Should not be able to login as member", function () {
         'password' => bcrypt('password'),
     ]);
 
+    get(route('login'))->assertSuccessful();
+
     $result = post(route('auth.login'), [
         'password' => 'password',
         'email'    => $memberUser->email,
