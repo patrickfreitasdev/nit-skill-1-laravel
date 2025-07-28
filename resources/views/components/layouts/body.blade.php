@@ -35,11 +35,16 @@
                                 </ul>
                             </div>
                             <div class="navbar-btn d-none d-sm-inline-block">
-                                <ul>
-                                    <li>
-                                        <a class="btn primary-btn-outline" href="#">Logout</a>
-                                    </li>
-                                </ul>
+                                @if(user())
+                                    <ul>
+                                        <li>
+                                            <form action="{{ route('auth.logout') }}" method="POST" onsubmit="return confirm('Are you sure you want to logout?')">
+                                                @csrf
+                                                <button class="btn primary-btn-outline logout-button">Logout</button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                @endif
                             </div>
                         </nav>
                         <!-- navbar -->

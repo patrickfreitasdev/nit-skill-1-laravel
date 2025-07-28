@@ -11,7 +11,7 @@ class HomeController extends Controller
 {
     public function __invoke(Request $request): View
     {
-        $users = User::all();
+        $users = User::query()->where('role', 'member')->orderBy('id', 'desc')->get();
 
         return view('home', compact('users'));
 

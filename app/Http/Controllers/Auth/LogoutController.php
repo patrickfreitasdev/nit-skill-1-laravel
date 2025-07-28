@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Livewire\Actions;
+namespace App\Http\Controllers\Auth;
 
-use Illuminate\Http\RedirectResponse;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\{RedirectResponse, Request};
 use Illuminate\Support\Facades\{Auth, Session};
 
-class Logout
+class LogoutController extends Controller
 {
     /**
-     * Log the current user out of the application.
+     * Handle the incoming request.
      */
     public function __invoke(): RedirectResponse
     {
@@ -17,6 +18,6 @@ class Logout
         Session::invalidate();
         Session::regenerateToken();
 
-        return redirect('/');
+        return to_route('login');
     }
 }

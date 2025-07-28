@@ -113,6 +113,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
     <script>
         //===== close navbar-collapse when a clicked
@@ -123,6 +124,74 @@
             navbarTogglerOne.classList.toggle("active");
         });
     </script>
+
+
+    <script>
+        @if (Session::has('message'))
+        console.log("{{ Session::get('alert-type') }}");
+        const type = "{{ Session::get('alert-type', 'info') }}";
+        switch (type) {
+            case 'info':
+                toastr.options.timeOut = 10000;
+                toastr.info("{{ Session::get('message') }}");
+                break;
+            case 'success':
+
+                Toastify({
+                    text:"{{ Session::get('message') }}",
+                    duration: 3000,
+                    close: true,
+                    gravity: "bottom", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "rgba(var(--bs-success-rgb)",
+                    },
+                    onClick: function(){} // Callback after click
+                }).showToast();
+
+                break;
+            case 'warning':
+
+                Toastify({
+                    text:"{{ Session::get('message') }}",
+                    duration: 3000,
+                    close: true,
+                    gravity: "bottom", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "rgba(var(--bs-warning-rgb)",
+                    },
+                    onClick: function(){} // Callback after click
+                }).showToast();
+
+                break;
+            case 'error':
+
+
+                Toastify({
+                    text:"{{ Session::get('message') }}",
+                    duration: 3000,
+                    close: true,
+                    gravity: "bottom", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "rgba(var(--bs-danger-rgb)",
+                    },
+                    onClick: function(){} // Callback after click
+                }).showToast();
+
+                break;
+        }
+        @endif
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/js/intlTelInput.min.js"></script>
+
+    @stack('scripts')
 
 </footer>
 <!--====== FOOTER ONE PART ENDS ======-->

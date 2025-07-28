@@ -1,36 +1,39 @@
 <?php
 
-use App\Http\Controllers\Pages\HomeController;
-use Illuminate\Support\Facades\{Auth, Route};
+use App\Http\Controllers\Auth\{LoginController, LogoutController};
+use App\Http\Controllers\Pages\{AboutUsController, EventController, HomeController, LoginPageController};
+use App\Http\Controllers\UserController;
+use App\Http\Middleware\AdminOnlyAccess;
+use Illuminate\Support\Facades\{Route};
 
-Route::get('/login', function () {
-
-    if (app()->environment('local')) {
-        Auth::loginUsingId(1);
-
-        return redirect(\route('home.index'));
-    }
-
-    return redirect('/');
-
-});
-
-Route::get('/about-us', \App\Http\Controllers\Pages\AboutUsController::class)->name('about.index');
-
-#region Event Routes
-Route::get('/events', [\App\Http\Controllers\Page\EventController::class, 'index'])->name('events.index');
-Route::get('/events/create', [\App\Http\Controllers\Page\EventController::class, 'create'])->name('events.create');
+#region Regular Page Routes
+Route::get('/', HomeController::class)->name('home.index');
+Route::get('/about-us', AboutUsController::class)->name('about.index');
 #endregion
 
-#region User Routes
-Route::get('/user/create', [\App\Http\Controllers\UserController::class, 'create'])->name('user.create');
-Route::get('/user/{user}/edit', [\App\Http\Controllers\UserController::class, 'edit'])->name('user.edit');
+#region Event Logged Out Routes
+Route::get('/events', [EventController::class, 'index'])->name('events.index');
 #endregion
 
-#region User Routes
-Route::get('/login', [\App\Http\Controllers\Auth\LoginController::class, 'index'])->name('login');
+#region Auth Routes
+Route::get('/login', LoginPageController::class)->name('login');
+Route::post('/login', LoginController::class)->name('auth.login');
 #endregion
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/', HomeController::class)->name('home.index');
+Route::middleware(['auth', AdminOnlyAccess::class])->group(function () {
+
+    #region User Routes
+    Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
+    Route::post('/user', [UserController::class, 'store'])->name('user.store');
+    Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
+    #endregion
+
+    #region Event logged in Routes
+    Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
+    #endregion
+
+    #region Auth Logged in Routes
+    Route::post('/logout', LogoutController::class)->name('auth.logout');
+    #endregion
+
 });
