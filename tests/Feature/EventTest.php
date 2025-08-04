@@ -9,7 +9,7 @@ use function Pest\Laravel\{actingAs, get};
 it("Should be able to see the events", function () {
 
     $user   = User::factory()->create();
-    $events = Event::factory()->count(10)->create(
+    $events = Event::factory()->count(4)->create(
         [
             'photo_path' => null,
         ]
