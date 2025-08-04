@@ -55,9 +55,26 @@ class User extends Authenticatable
         ];
     }
 
+    /**
+     * Returns the age based on the birthday
+     * @return int
+     */
     public function getYearOfBirthAttribute(): int
     {
         return Carbon::parse($this->attributes['date_of_birth'])->age;
+    }
+
+    /**
+     * Return the correct value format to be used on the front end
+     * @return string|null
+     */
+    public function getDateOfBirthAttribute(): ?string
+    {
+        if (isset($this->attributes['date_of_birth'])) {
+            return Carbon::parse($this->attributes['date_of_birth'])->format('Y-m-d');
+        }
+
+        return null;
     }
 
     public function isAdmin(): bool
