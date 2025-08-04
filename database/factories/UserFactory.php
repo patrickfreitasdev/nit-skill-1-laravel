@@ -30,7 +30,7 @@ class UserFactory extends Factory
             'email_verified_at'    => now(),
             'password'             => static::$password ??= Hash::make('password'),
             'role'                 => 'member',
-            'phone'                => fake('en_AU')->phoneNumber(),
+            'phone'                => fake()->e164PhoneNumber(),
             'address'              => fake()->address(),
             'profissional_summary' => fake()->paragraph(),
             'date_of_birth'        => fake()->dateTimeBetween('-80 years', '-16 years')->format('Y-m-d'),

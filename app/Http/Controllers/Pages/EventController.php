@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
 use Illuminate\View\View;
 
 class EventController extends Controller
@@ -12,7 +13,10 @@ class EventController extends Controller
      */
     public function index(): View
     {
-        return view('events.list');
+
+        $events = Event::all();
+
+        return view('events.list', compact('events'));
     }
 
     /**

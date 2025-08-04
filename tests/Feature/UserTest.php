@@ -142,3 +142,17 @@ it("Should be able to edit a user", function () {
     put(route('user.update', $user), $updatedInformation)->assertRedirect(route('home.index'));
 
 });
+
+it("Should be able to delete a user", function () {
+    $adminUser = User::factory()->create([
+        'role' => 'admin',
+    ]);
+
+    $user = User::factory()->create([
+        'email_verified_at' => now(),
+    ]);
+
+    actingAs($adminUser);
+
+    \Pest\Laravel\delete(route('user.destroy', $user))->assertRedirect(route('home.index'));
+});

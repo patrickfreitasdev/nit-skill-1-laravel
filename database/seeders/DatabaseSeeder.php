@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\{Event, User};
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -23,5 +23,7 @@ class DatabaseSeeder extends Seeder
             'date_of_birth' => '1990-01-01',
             'role'          => 'admin',
         ]);
+
+        Event::factory(20)->create();
     }
 }
