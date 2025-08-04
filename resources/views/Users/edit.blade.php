@@ -11,50 +11,85 @@
 
         <div class="row mb-4 mt-4">
             <div class="col-12">
-                <form>
+                <x-form :action="route('user.update', $user)" put>
                     <div class="row">
                         <div class="col-6 form-group mb-2">
-                            <label for="fname" class="form-label">First Name <span class="text-danger">*</span></label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="fname"
+                           <x-input
+                                name="name"
+                                label="Name"
+                                placeholder="Enter the name"
+                                value="{{ old('name', $user->name) }}"
                                 required
-                                value="First Name"
-                                placeholder="Enter the first name"
-                            />
-                            <span class="text-danger login-error d-block mt-1 mb-1">Something went wrong</span>
+                           />
                         </div>
                         <div class="col-6 form-group mb-2">
-                            <label for="lname" class="form-label">Last Name <span class="text-danger">*</span></label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="lname"
-                                value="Last Name"
-                                placeholder="Enter the last name"
-                            />
+                           <x-input
+                                type="email"
+                                name="email"
+                                label="Email"
+                                placeholder="Enter the email"
+                                value="{{ old('email', $user->email) }}"
+                                required
+                           />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6 form-group mb-2">
-                            <label for="lname" class="form-label">Email <span class="text-danger">*</span></label>
-                            <input
-                                type="email"
-                                class="form-control"
-                                id="email"
-                                value="user@email.com"
-                                placeholder="Enter the email"
-                            />
+                           <x-input
+                                type="tel"
+                                name="phone"
+                                label="Phone"
+                                placeholder="Enter the phone number"
+                                value="{{ old('phone', $user->phone) }}"
+                                required
+                           />
                         </div>
                         <div class="col-6 form-group mb-2">
-                            <label for="date" class="form-label">DOB <span class="text-danger">*</span></label>
-                            <input value="2018-07-22" type="date" class="form-control" id="date" placeholder="Select date">
+                           <x-input
+                                type="date"
+                                name="date_of_birth"
+                                label="DOB"
+                                placeholder="Select date"
+                                value="{{ old('date_of_birth', $user->date_of_birth) }}"
+                                required
+                           />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                           <x-textarea
+                                name="address"
+                                label="Address"
+                                placeholder="Enter the address"
+                                value="{{ old('address', $user->address) }}"
+                                required
+                           />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mt-2">
+                           <x-textarea
+                                name="profissional_summary"
+                                label="Profissional Summary"
+                                placeholder="Enter the summary"
+                                value="{{ old('profissional_summary', $user->profissional_summary) }}"
+                           />
                         </div>
                     </div>
                     <button type="submit" class="btn primary-btn-outline d-block ms-auto me-auto mt-3">Save Changes</button>
-                </form>
+                </x-form>
             </div>
         </div>
     </main>
+    @push('scripts')
+        <script>
+            const input = document.querySelector("#phone");
+            window.intlTelInput(input, {
+                onlyCountries: ["au"],
+                allowDropdown: false,
+                showFlags: false,
+                loadUtils: () => import("https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/js/utils.js"),
+            });
+        </script>
+    @endpush
 </x-layouts.body>

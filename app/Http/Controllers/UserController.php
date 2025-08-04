@@ -35,11 +35,12 @@ class UserController extends Controller
          * again and the second attempt make the phone validation to fail
          */
         $validated = request()->validate([
-            'name'          => 'required|string|max:255',
-            'email'         => 'required|string|email|max:255|unique:users',
-            'phone'         => 'required|phone',
-            'address'       => 'required|string|max:255',
-            'date_of_birth' => function ($attribute, $value, $fail) {
+            'name'                 => 'required|string|max:255',
+            'email'                => 'required|string|email|max:255|unique:users',
+            'phone'                => 'required:AU|string|max:255',
+            'address'              => 'required|string|max:255',
+            'profissional_summary' => 'nullable|string',
+            'date_of_birth'        => function ($attribute, $value, $fail) {
 
                 $age = Carbon::parse($value)->age;
 
@@ -64,10 +65,47 @@ class UserController extends Controller
             return redirect()->route('home.index')->with($notification);
         }
 
-        $notification = [
-            'message'    => 'Something went wrong..',
-            'alert-type' => 'error',
-        ];
+        return redirect()->back()->withErrors($validated);
+
+    }
+
+    public function update(User $user): RedirectResponse
+    {
+
+        /**
+         * FIXME
+         * When any validation fails e.g date_of_birth, it correctly return to front end
+         * and pre-populate the old value including phone, but the phone JS library fails to populate the country code
+         * again and the second attempt make the phone validation to fail
+         */
+        $validated = request()->validate([
+            'name'                 => 'required|string|max:255',
+            'email'                => 'required|string|email|max:255|unique:users,email,' . $user->getAttributeValue('id'),
+            'phone'                => 'required:AU|string|max:255',
+            'address'              => 'required|string|max:255',
+            'profissional_summary' => 'nullable|string',
+            'date_of_birth'        => function ($attribute, $value, $fail) {
+
+                $age = Carbon::parse($value)->age;
+
+                if ($age < 1 || $age > 112) {
+                    $fail('Invalid age, please check the birth date');
+                }
+            },
+        ]);
+
+        if ($validated) {
+
+            $user->update($validated);
+
+            $notification = [
+                'message'    => 'New member added successfully.',
+                'alert-type' => 'success',
+            ];
+
+            return redirect()->route('home.index')->with($notification);
+
+        }
 
         return redirect()->back()->withErrors($validated);
 

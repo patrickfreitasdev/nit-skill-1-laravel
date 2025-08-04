@@ -26,6 +26,7 @@ Route::middleware(['auth', AdminOnlyAccess::class])->group(function () {
     Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
     Route::post('/user', [UserController::class, 'store'])->name('user.store');
     Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::put('/user/{user}', [UserController::class, 'update'])->name('user.update');
     #endregion
 
     #region Event logged in Routes

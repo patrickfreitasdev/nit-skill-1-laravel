@@ -2,9 +2,10 @@
 
 use App\Models\User;
 
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Hash;
 
-use function Pest\Laravel\{actingAs, get, post};
+use function Pest\Laravel\{actingAs, get, post, put};
 
 it("Should be able to login as admin", function () {
 
@@ -97,5 +98,47 @@ it('Should list users on the home page', function () {
     foreach ($users as $u) {
         $response->assertSee($u->getAttributeValue('name'));
     }
+
+});
+
+it("Should paginate the result", function () {
+
+    $users = User::factory()->count(20)->create([
+        'email_verified_at' => now(),
+    ]);
+
+    $user = $users->random();
+
+    actingAs($user);
+
+    get(route('home.index'))->assertViewHas('users', function ($value) {
+        return $value instanceof LengthAwarePaginator;
+    });
+
+});
+
+it("Should be able to edit a user", function () {
+
+    $adminUser = User::factory()->create([
+        'role' => 'admin',
+    ]);
+
+    $user = User::factory()->create([
+        'email_verified_at' => now(),
+    ]);
+
+    $updatedInformation = [
+        'name'          => fake()->name(),
+        'phone'         => fake()->e164PhoneNumber(),
+        'address'       => fake()->address(),
+        'email'         => $user->email,
+        'date_of_birth' => fake()->dateTimeBetween('-80 years', '-16 years')->format('Y-m-d'),
+    ];
+
+    actingAs($adminUser);
+
+    get(route('user.edit', $user))->assertSuccessful();
+
+    put(route('user.update', $user), $updatedInformation)->assertRedirect(route('home.index'));
 
 });
