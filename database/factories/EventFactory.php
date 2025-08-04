@@ -25,6 +25,13 @@ class EventFactory extends Factory
             'price'       => $this->faker->randomFloat(2, 0, 1000),
             'photo_path'  => function () {
 
+                $dice = random_int(1, 100);
+
+                /** Make sure some images are null in the database so we can test the placeholder */
+                if ($dice % 2 === 0) {
+                    return null;
+                }
+
                 $directory = storage_path('app/public/events');
 
                 if (!is_dir($directory)) {

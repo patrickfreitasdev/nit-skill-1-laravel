@@ -93,21 +93,13 @@
             @endforeach
         </div>
 
-        <div class="row">
-            <div class="col-12">
-                <nav id="table-pagination" aria-label="Pagination for the members list"
-                     class="d-flex justify-content-end pb-4">
-                    <ul class="pagination">
-                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                    </ul>
-                </nav>
+        @if($events->hasPages())
+            <div class="row">
+                <div class="col-12 mt-2 mb-2">
+                    {{ $events->withQueryString()->links() }}
+                </div>
             </div>
-        </div>
-
+        @endif
 
     </main>
 
