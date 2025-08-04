@@ -45,10 +45,15 @@
                                             <span class="visually-hidden">Edit user details</span>
                                             <i class="lni lni-pencil-1"></i>
                                         </a>
-                                        <a class="btn-action btn-action--delete" href="#" onclick="return confirm('Are you sure you want to delete this user?')">
-                                            <span class="visually-hidden">Delete user</span>
-                                            <i class="lni lni-trash-3"></i>
-                                        </a>
+                                        <x-form
+                                            :action="route('user.destroy', $user)"
+                                            delete
+                                            onclick="return confirm('Are you sure you want to delete this user?')">
+                                            <button type="submit" class="btn-action btn-action--delete">
+                                                <span class="visually-hidden">Delete user</span>
+                                                <i class="lni lni-trash-3"></i>
+                                            </button>
+                                        </x-form>
                                     </div>
                                 </td>
                             @endif

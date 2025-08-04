@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -108,6 +109,32 @@ class UserController extends Controller
         }
 
         return redirect()->back()->withErrors($validated);
+
+    }
+
+    public function destroy(User $user): RedirectResponse
+    {
+
+        try {
+
+            $user->delete();
+
+            $notification = [
+                'message'    => 'Member deleted successfully.',
+                'alert-type' => 'success',
+            ];
+
+            return redirect()->route('home.index')->with($notification);
+
+        } catch (Exception $e) {
+
+            $notification = [
+                'message'    => $e->getMessage(),
+                'alert-type' => 'error',
+            ];
+
+            return redirect()->back()->with($notification);
+        }
 
     }
 }
