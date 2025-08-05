@@ -117,12 +117,18 @@ class EventController extends Controller
      */
     private function uploadImage(UploadedFile $file): string
     {
+        $directory = storage_path('app/public/events');
+
+        // Ensure the directory exists
+        if (!File::exists($directory)) {
+            File::makeDirectory($directory, 0755, true);
+        }
 
         $manager = new ImageManager(new Driver());
         $image   = $manager->read($file);
 
         $filename = time() . '.' . $file->getClientOriginalExtension();
-        $image->resize(640, 480)->save(storage_path('app/public/events/' . $filename));
+        $image->resize(640, 480)->save($directory . '/' . $filename);
 
         return 'events/' . $filename;
     }
