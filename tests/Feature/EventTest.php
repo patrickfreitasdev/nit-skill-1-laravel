@@ -87,7 +87,7 @@ it("Should be able to create an event", function () {
     $eventDetails = [
         'title'       => 'Event title',
         'description' => 'Event description',
-        'date'        => '2025-08-02',
+        'date'        => now()->addDays(10)->format('Y-m-d'),
         'location'    => 'London',
         'price'       => 100,
         'event_image' => ($imageFile) ?? null,
