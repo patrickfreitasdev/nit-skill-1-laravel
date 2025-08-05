@@ -43,3 +43,37 @@ it("Should paginate the events", function () {
     });
 
 });
+
+it("Should be able to filter the events", function () {
+
+    $user = User::factory()->create();
+
+    actingAs($user);
+
+    $correctEvent = Event::factory()->create(
+        [
+            'photo_path' => null,
+            'location'   => 'London',
+            'date'       => '2025-08-02',
+        ]
+    );
+
+    $wrongEvent = Event::factory()->create(
+        [
+            'photo_path' => null,
+            'location'   => 'Perth',
+            'date'       => '2025-08-04',
+        ]
+    );
+
+    $response = get(route('events.index', ['location' => $correctEvent->location]));
+
+    $response->assertSee($correctEvent->title);
+    $response->assertDontSee($wrongEvent->title);
+
+    $response = get(route('events.index', ['date' => $correctEvent->date]));
+
+    $response->assertSee($correctEvent->title);
+    $response->assertDontSee($wrongEvent->title);
+
+});

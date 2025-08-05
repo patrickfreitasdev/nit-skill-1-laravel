@@ -39,6 +39,7 @@
                                 type="tel"
                                 name="phone"
                                 label="Phone"
+                                id="phone"
                                 placeholder="Enter the phone number"
                                 value="{{ old('phone', $user->phone) }}"
                                 required
@@ -81,15 +82,5 @@
             </div>
         </div>
     </main>
-    @push('scripts')
-        <script>
-            const input = document.querySelector("#phone");
-            window.intlTelInput(input, {
-                onlyCountries: ["au"],
-                allowDropdown: false,
-                showFlags: false,
-                loadUtils: () => import("https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/js/utils.js"),
-            });
-        </script>
-    @endpush
+    <x-users.scripts/>
 </x-layouts.body>

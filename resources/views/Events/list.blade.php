@@ -12,25 +12,7 @@
             </div>
         @endif
 
-        <div class="row mb-4 mt-4">
-            <div class="col-12">
-                <div class="d-flex justify-content-between align-items-center">
-                    <form class="d-flex gap-2 align-items-end" style="width: 100%;">
-                        <div class="form-group">
-                            <label for="name" class="form-label">Location</label>
-                            <input type="text" class="form-control" id="name" placeholder="Enter the location">
-                        </div>
-                        <div class="form-group">
-                            <label for="date" class="form-label">Date</label>
-                            <input type="date" class="form-control" id="date" placeholder="Select date">
-                        </div>
-                        <div>
-                            <button type="submit" class="btn primary-btn-outline btn-filter">Filter</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+       <x-events.filter/>
 
         <div class="row">
             <div class="col-lg-12">
@@ -39,6 +21,11 @@
                 </div>
             </div>
         </div>
+            @empty($events->all())
+                <div class="alert alert-dark mt-5" role="alert">
+                    No events found.
+                </div>
+            @endempty
 
         <div class="row mt-4 mb-4">
             @forEach($events as $event)

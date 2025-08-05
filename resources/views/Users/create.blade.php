@@ -41,6 +41,7 @@
                                 label="Phone"
                                 placeholder="Enter the phone number"
                                 value="{{ old('phone') }}"
+                                autocomplete="tel"
                                 required
                            />
                         </div>
@@ -82,15 +83,5 @@
         </div>
     </main>
 
-    @push('scripts')
-        <script>
-            const input = document.querySelector("#phone");
-            window.intlTelInput(input, {
-                onlyCountries: ["au"],
-                allowDropdown: false,
-                showFlags: false,
-                loadUtils: () => import("https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/js/utils.js"),
-            });
-        </script>
-    @endpush
+    <x-users.scripts/>
 </x-layouts.body>

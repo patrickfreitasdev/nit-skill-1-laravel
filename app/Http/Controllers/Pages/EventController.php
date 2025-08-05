@@ -14,7 +14,14 @@ class EventController extends Controller
     public function index(): View
     {
 
-        $events = Event::query()->paginate(6);
+        $events = Event::query()
+            ->when(request()->has('location'), function ($query) {
+                $query->where('location', 'like', '%' . request()->location . '%');
+            })
+            ->when(request()->has('date'), function ($query) {
+                $query->where('date', 'like', '%' . request()->date . '%');
+            })
+            ->paginate(6);
 
         return view('events.list', compact('events'));
     }
