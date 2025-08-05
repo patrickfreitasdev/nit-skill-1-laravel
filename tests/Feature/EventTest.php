@@ -4,7 +4,7 @@ use App\Models\{Event, User};
 
 use Illuminate\Pagination\LengthAwarePaginator;
 
-use function Pest\Laravel\{actingAs, get};
+use function Pest\Laravel\{actingAs, assertDatabaseCount, assertDatabaseHas, get, post};
 
 it("Should be able to see the events", function () {
 
@@ -75,5 +75,38 @@ it("Should be able to filter the events", function () {
 
     $response->assertSee($correctEvent->title);
     $response->assertDontSee($wrongEvent->title);
+
+});
+
+it("Should be able to create an event", function () {
+
+    $user = User::factory()->create(['role' => 'admin']);
+
+    $imageFile = Illuminate\Http\UploadedFile::fake()->image('event.jpg');
+
+    $eventDetails = [
+        'title'       => 'Event title',
+        'description' => 'Event description',
+        'date'        => '2025-08-02',
+        'location'    => 'London',
+        'price'       => 100,
+        'event_image' => ($imageFile) ?? null,
+    ];
+
+    actingAs($user);
+
+    get(route('events.create'))->assertSuccessful();
+
+    post(route('events.store'), $eventDetails)->assertRedirect(route('events.index'));
+
+    $response = get(route('events.index'));
+
+    $response->assertSee($eventDetails['title']);
+
+    assertDatabaseHas('events', [
+        'title' => $eventDetails['title'],
+    ]);
+
+    assertDatabaseCount('events', 1);
 
 });

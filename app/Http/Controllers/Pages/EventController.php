@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;
+use Illuminate\Http\{RedirectResponse, UploadedFile};
 use Illuminate\View\View;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 class EventController extends Controller
 {
@@ -21,6 +24,7 @@ class EventController extends Controller
             ->when(request()->has('date'), function ($query) {
                 $query->where('date', 'like', '%' . request()->date . '%');
             })
+            ->orderBy('id', 'desc')
             ->paginate(6);
 
         return view('events.list', compact('events'));
@@ -32,5 +36,61 @@ class EventController extends Controller
     public function create(): View
     {
         return view('events.create');
+    }
+
+    public function store(): RedirectResponse
+    {
+
+        request()->merge([
+            'user_id' => user()->getAttributeValue('id'),
+        ]);
+
+        $validated = request()->validate([
+            'title' => 'required|string|max:255',
+            'price' => 'nullable|numeric',
+            'date'  => function ($attribute, $value, $fail) {
+                $isPastDate = strtotime($value) < strtotime(now());
+
+                if ($isPastDate) {
+                    $fail('Invalid date, please check the date, it must be a future date');
+                }
+            },
+            'location'    => 'required|string|max:255',
+            'description' => 'required|string',
+            'user_id'     => 'required',
+        ]);
+
+        if (!$validated) {
+            return redirect()->back()->withErrors($validated);
+        }
+
+        if (request()->hasFile('event_image')) {
+            $validated['photo_path'] = $this->uploadImage(request()->file('event_image'));
+        }
+
+        Event::query()->create($validated);
+
+        $notification = [
+            'message'    => 'Member deleted successfully.',
+            'alert-type' => 'success',
+        ];
+
+        return redirect()->route('events.index')->with($notification);
+    }
+
+    /**
+     * @param UploadedFile $file
+     * @return string
+     */
+    private function uploadImage(UploadedFile $file): string
+    {
+
+        $manager = new ImageManager(new Driver());
+        $image   = $manager->read($file);
+
+        $filename = time() . '.' . $file->getClientOriginalExtension();
+        $image->resize(640, 480)->save(storage_path('app/public/events/' . $filename));
+
+        return 'events/' . $filename;
     }
 }
