@@ -17,12 +17,12 @@
                     <div class="col-md-4 col-sm-8">
                         <div class="single-about-items">
                             <div class="items-icon">
-                                <i class="lni lni-cart-1"></i>
+                                <i class="lni lni-check-circle-1"></i>
                             </div>
                             <div class="items-content">
-                                <h4 class="items-title">Lorem ipsum dolor sit amet</h4>
+                                <h4 class="items-title">Quality</h4>
                                 <p class="text">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+                                    We are committed to delivering a reliable and user-friendly platform that upholds the highest standards of data accuracy, performance, and accessibility. Every feature is designed to ensure event participants and administrators have a smooth, efficient experience.
                                 </p>
                             </div>
                         </div>
@@ -31,12 +31,12 @@
                     <div class="col-md-4 col-sm-8">
                         <div class="single-about-items">
                             <div class="items-icon">
-                                <i class="lni lni-shield-dollar"></i>
+                                <i class="lni lni-check-circle-1"></i>
                             </div>
                             <div class="items-content">
-                                <h4 class="items-title">Lorem ipsum dolor sit amet</h4>
+                                <h4 class="items-title">Innovation</h4>
                                 <p class="text">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+                                    All of our events are designed to be engaging, relevant, and forward-thinking. From planning to execution, we continuously bring fresh ideas and unique experiences that inspire and prepare students for real-world challenges.
                                 </p>
                             </div>
                         </div>
@@ -45,12 +45,12 @@
                     <div class="col-md-4 col-sm-8">
                         <div class="single-about-items">
                             <div class="items-icon">
-                                <i class="lni lni-apple-music"></i>
+                                <i class="lni lni-check-circle-1"></i>
                             </div>
                             <div class="items-content">
-                                <h4 class="items-title">Lorem ipsum dolor sit amet</h4>
+                                <h4 class="items-title">Career Development</h4>
                                 <p class="text">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+                                    Our platform supports student growth by facilitating meaningful engagement in career-focused events. By streamlining participation and communication, we help students stay informed, involved, and on track toward professional success.
                                 </p>
                             </div>
                         </div>
@@ -70,19 +70,14 @@
                     <div class="col-12 mb-5">
                         <h2>Who We Are</h2>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do
-                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do
-                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do
-                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do
-                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do
+                            At Career Training College, we are dedicated to empowering students through practical, real-world experiences that enhance their employability and career readiness. As an approved provider of the ICT50220 Diploma of Information Technology through the Jobs and Skills WA initiative, we host numerous events each month as part of our Job Ready Program. Our commitment to student development has led us to create an innovative Event Team Management Website that streamlines how we manage, engage, and support our student participants.
                         </p>
                     </div>
                     <div class="col-12 col-md-6">
                         <div class="mission-vision-item">
                             <h2>Mission</h2>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do
-                                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                To provide a dynamic platform that simplifies event management, fosters student participation, and supports career readiness through streamlined communication and efficient tracking of active members in our programs.
                             </p>
                         </div>
                     </div>
@@ -90,8 +85,7 @@
                         <div class="mission-vision-item">
                             <h2>Vision</h2>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do
-                                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                To be a leader in student-focused event coordination by leveraging technology that enhances educational outcomes, builds meaningful professional experiences, and prepares students for success in the digital workforce.
                             </p>
                         </div>
                     </div>
@@ -113,7 +107,7 @@
                             </li>
                             <li class="d-flex align-items-center gap-2">
                                 <i class="lni lni-phone-set"></i>
-                                <p>+00 000 00000</p>
+                                <p>+61 000 000 000</p>
                             </li>
                             <li class="d-flex align-items-center gap-2">
                                 <i class="lni lni-envelope"></i>

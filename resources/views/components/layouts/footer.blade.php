@@ -8,8 +8,7 @@
                         <div class="footer-logo">
                         </div>
                         <p class="text">
-                            Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry.
+                            All of our events are designed to be engaging, relevant, and forward-thinking.
                         </p>
                     </div>
                     <div class="footer-app-store">
@@ -32,7 +31,7 @@
                     <div class="footer-link">
                         <h6 class="footer-title">Company</h6>
                         <ul>
-                            <li><a href="/about.html">About</a></li>
+                            <li><a href="{{ route('about.index') }}">About</a></li>
                         </ul>
                     </div>
                     <!-- footer link -->
@@ -41,9 +40,9 @@
                     <div class="footer-link">
                         <h6 class="footer-title">Quick access</h6>
                         <ul>
-                            <li><a href="/create-user.html">Create user</a></li>
-                            <li><a href="/create-event.html">Create event</a></li>
-                            <li><a href="/events.html">Events</a></li>
+                            <li><a href="{{ route('user.create')  }}">Create user</a></li>
+                            <li><a href="{{ route('events.create')  }}">Create event</a></li>
+                            <li><a href="{{ route('events.index')  }}">Events</a></li>
                         </ul>
                     </div>
                     <!-- footer link -->
@@ -51,14 +50,13 @@
                 <div class="col-xl-2 col-lg-3 col-sm-4">
                     <!-- Start Footer Contact -->
                     <div class="footer-contact">
-                        <h6 class="footer-title">Help & Suuport</h6>
+                        <h6 class="footer-title">Help & Support</h6>
                         <ul>
                             <li>
-                                <i class="lni lni-map-marker-1"></i> Madison Street, NewYork,
-                                USA
+                                <i class="lni lni-map-marker-1"></i> Lorem ipsum dolor sit amet, Perth, WA
                             </li>
-                            <li><i class="lni lni-phone"></i> +88 556 88545</li>
-                            <li><i class="lni lni-envelope-1"></i>support@ayroui.com</li>
+                            <li><i class="lni lni-phone"></i> +61 000 000 000</li>
+                            <li><i class="lni lni-envelope-1"></i>info@organization.com</li>
                         </ul>
                     </div>
                     <!-- End Footer Contact -->
@@ -80,7 +78,7 @@
                    justify-content-between
                    align-items-center
                    ">
-                        <p class="text">Copyright © 2024 Event Company. All Rights Reserved</p>
+                        <p class="text">Copyright © <?php echo date('Y') ?> Career Training College. All Rights Reserved</p>
                         <ul class="social">
                             <li>
                                 <a href="#">
@@ -116,7 +114,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
     <script>
-        //===== close navbar-collapse when a clicked
+        //===== close navbar-collapse when clicked
         let navbarTogglerOne = document.querySelector(
             ".navbar-one .navbar-toggler"
         );
