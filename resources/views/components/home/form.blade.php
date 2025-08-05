@@ -10,8 +10,9 @@
                     <label for="email" class="form-label">Email</label>
                     <input name="email" type="email" class="form-control" id="email" placeholder="Enter email">
                 </div>
-                <div>
+                <div class="d-flex gap-2">
                     <button type="submit" class="btn primary-btn-outline btn-filter">Filter</button>
+                    <a href="{{ route('home.index') }}" class="btn btn-clear">Clear</a>
                 </div>
             </form>
         </div>

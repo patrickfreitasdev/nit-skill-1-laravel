@@ -1,24 +1,24 @@
-<x-layouts.body title="Edit user {{$user->name}}">
+<x-layouts.body title="Create User">
     <main id="internal-main" class="container mt-5 pb-4">
         <div class="row">
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h1>Editing user {{ $user->id }}</h1>
-                    <a href="{{ route('home.index') }}" class="btn primary-btn-outline btn-register">Return</a>
+                    <h1>Create a new user</h1>
+                    <a href="{{route('home.index')}}" class="btn primary-btn-outline btn-register">Return</a>
                 </div>
             </div>
         </div>
 
         <div class="row mb-4 mt-4">
             <div class="col-12">
-                <x-form :action="route('user.update', $user)" put>
+                <x-form :action="route('user.store')" post>
                     <div class="row">
                         <div class="col-6 form-group mb-2">
                            <x-input
                                 name="name"
                                 label="Name"
                                 placeholder="Enter the name"
-                                value="{{ old('name', $user->name) }}"
+                                value="{{ old('name') }}"
                                 required
                            />
                         </div>
@@ -28,7 +28,7 @@
                                 name="email"
                                 label="Email"
                                 placeholder="Enter the email"
-                                value="{{ old('email', $user->email) }}"
+                                value="{{ old('email') }}"
                                 required
                            />
                         </div>
@@ -40,7 +40,8 @@
                                 name="phone"
                                 label="Phone"
                                 placeholder="Enter the phone number"
-                                value="{{ old('phone', $user->phone) }}"
+                                value="{{ old('phone') }}"
+                                autocomplete="tel"
                                 required
                            />
                         </div>
@@ -50,7 +51,7 @@
                                 name="date_of_birth"
                                 label="DOB"
                                 placeholder="Select date"
-                                value="{{ old('date_of_birth', $user->date_of_birth) }}"
+                                value="{{ old('date_of_birth') }}"
                                 required
                            />
                         </div>
@@ -61,7 +62,7 @@
                                 name="address"
                                 label="Address"
                                 placeholder="Enter the address"
-                                value="{{ old('address', $user->address) }}"
+                                value="{{ old('address') }}"
                                 required
                            />
                         </div>
@@ -72,24 +73,15 @@
                                 name="profissional_summary"
                                 label="Profissional Summary"
                                 placeholder="Enter the summary"
-                                value="{{ old('profissional_summary', $user->profissional_summary) }}"
+                                value="{{ old('profissional_summary') }}"
                            />
                         </div>
                     </div>
-                    <button type="submit" class="btn primary-btn-outline d-block ms-auto me-auto mt-3">Save Changes</button>
+                    <button type="submit" class="btn primary-btn-outline d-block ms-auto me-auto mt-3">Register</button>
                 </x-form>
             </div>
         </div>
     </main>
-    @push('scripts')
-        <script>
-            const input = document.querySelector("#phone");
-            window.intlTelInput(input, {
-                onlyCountries: ["au"],
-                allowDropdown: false,
-                showFlags: false,
-                loadUtils: () => import("https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/js/utils.js"),
-            });
-        </script>
-    @endpush
+
+    <x-users.scripts/>
 </x-layouts.body>
