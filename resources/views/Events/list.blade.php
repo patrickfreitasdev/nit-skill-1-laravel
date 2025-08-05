@@ -33,13 +33,12 @@
                     <div class="event-card">
                         <div class="feature-image">
                             @if(user())
-                                <fom>
-                                    <button type="submit"
-                                            onclick="return confirm('Are you sure you want to delete this event?')">
+                                <x-form :action="route('events.destroy', $event)" delete onsubmit="return confirm('Are you sure you want to delete this event?')">
+                                    <button type="submit">
                                         <i class="lni lni-trash-3"></i>
                                         <span class="visually-hidden">Delete event</span>
                                     </button>
-                                </fom>
+                                </x-form>
                             @endif
 
                             @if($event->photo_path)

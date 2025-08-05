@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pages;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Illuminate\Http\{RedirectResponse, UploadedFile};
+use Illuminate\Support\Facades\File;
 use Illuminate\View\View;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
@@ -71,11 +72,43 @@ class EventController extends Controller
         Event::query()->create($validated);
 
         $notification = [
-            'message'    => 'Member deleted successfully.',
+            'message'    => 'Event created successfully.',
             'alert-type' => 'success',
         ];
 
         return redirect()->route('events.index')->with($notification);
+    }
+
+    public function destroy(Event $event): RedirectResponse
+    {
+
+        try {
+
+            $eventImage = storage_path('app/public/' . $event->getAttributeValue('photo_path'));
+
+            $event->delete();
+
+            if (File::exists($eventImage)) {
+                File::delete($eventImage);
+            }
+
+            $notification = [
+                'message'    => 'Event deleted successfully.',
+                'alert-type' => 'success',
+            ];
+
+            return redirect()->route('events.index')->with($notification);
+
+        } catch (\Exception $e) {
+
+            $notification = [
+                'message'    => 'Something went wrong, please try again or contact support.',
+                'alert-type' => 'error',
+            ];
+
+            return back()->with($notification);
+        }
+
     }
 
     /**

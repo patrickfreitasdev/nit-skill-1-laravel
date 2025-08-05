@@ -48,7 +48,7 @@
                                         <x-form
                                             :action="route('user.destroy', $user)"
                                             delete
-                                            onclick="return confirm('Are you sure you want to delete this user?')">
+                                            onsubmit="return confirm('Are you sure you want to delete this user?')">
                                             <button type="submit" class="btn-action btn-action--delete">
                                                 <span class="visually-hidden">Delete user</span>
                                                 <i class="lni lni-trash-3"></i>

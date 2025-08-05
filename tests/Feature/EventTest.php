@@ -4,7 +4,7 @@ use App\Models\{Event, User};
 
 use Illuminate\Pagination\LengthAwarePaginator;
 
-use function Pest\Laravel\{actingAs, assertDatabaseCount, assertDatabaseHas, get, post};
+use function Pest\Laravel\{actingAs, assertDatabaseCount, assertDatabaseHas, delete, get, post};
 
 it("Should be able to see the events", function () {
 
@@ -108,5 +108,19 @@ it("Should be able to create an event", function () {
     ]);
 
     assertDatabaseCount('events', 1);
+
+});
+
+it("Should be able to remove an event", function () {
+
+    $user = User::factory()->create(['role' => 'admin']);
+
+    $event = Event::factory()->create();
+
+    actingAs($user);
+
+    delete(route('events.destroy', $event))->assertRedirect(route('events.index'));
+
+    assertDatabaseCount('events', 0);
 
 });

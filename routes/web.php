@@ -33,6 +33,7 @@ Route::middleware(['auth', AdminOnlyAccess::class])->group(function () {
     #region Event logged in Routes
     Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
     Route::post('/events', [EventController::class, 'store'])->name('events.store');
+    Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
     #endregion
 
     #region Auth Logged in Routes
