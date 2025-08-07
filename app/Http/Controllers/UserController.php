@@ -43,6 +43,15 @@ class UserController extends Controller
             'profissional_summary' => 'nullable|string',
             'date_of_birth'        => function ($attribute, $value, $fail) {
 
+                $date = Carbon::parse($value);
+
+                if ($date->isFuture()) {
+
+                    $fail('Invalid date, please check the date, it must be a past date, unless you are the terminator');
+
+                    return;
+                }
+
                 $age = Carbon::parse($value)->age;
 
                 if ($age < 1 || $age > 112) {
@@ -86,6 +95,15 @@ class UserController extends Controller
             'address'              => 'required|string|max:255',
             'profissional_summary' => 'nullable|string',
             'date_of_birth'        => function ($attribute, $value, $fail) {
+
+                $date = Carbon::parse($value);
+
+                if ($date->isFuture()) {
+
+                    $fail('Invalid date, please check the date, it must be a past date');
+
+                    return;
+                }
 
                 $age = Carbon::parse($value)->age;
 
