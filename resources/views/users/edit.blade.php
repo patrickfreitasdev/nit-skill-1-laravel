@@ -70,10 +70,10 @@
                     <div class="row">
                         <div class="col-12 mt-2">
                            <x-textarea
-                                name="profissional_summary"
+                                name="professional_summary"
                                 label="Profissional Summary"
                                 placeholder="Enter the summary"
-                                value="{{ old('profissional_summary', $user->profissional_summary) }}"
+                                value="{{ old('professional_summary', $user->professional_summary) }}"
                            />
                         </div>
                     </div>

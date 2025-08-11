@@ -32,7 +32,7 @@ class UserFactory extends Factory
             'role'                 => 'member',
             'phone'                => fake()->e164PhoneNumber(),
             'address'              => fake()->address(),
-            'profissional_summary' => fake()->paragraph(),
+            'professional_summary' => fake()->paragraph(),
             'date_of_birth'        => fake()->dateTimeBetween('-80 years', '-16 years')->format('Y-m-d'),
             'remember_token'       => Str::random(10),
         ];

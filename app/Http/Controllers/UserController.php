@@ -40,7 +40,7 @@ class UserController extends Controller
             'email'                => 'required|string|email|max:255|unique:users',
             'phone'                => 'required:AU|string|max:255',
             'address'              => 'required|string|max:255',
-            'profissional_summary' => 'nullable|string',
+            'professional_summary' => 'nullable|string',
             'date_of_birth'        => function ($attribute, $value, $fail) {
 
                 $date = Carbon::parse($value);
@@ -93,7 +93,7 @@ class UserController extends Controller
             'email'                => 'required|string|email|max:255|unique:users,email,' . $user->getAttributeValue('id'),
             'phone'                => 'required:AU|string|max:255',
             'address'              => 'required|string|max:255',
-            'profissional_summary' => 'nullable|string',
+            'professional_summary' => 'nullable|string',
             'date_of_birth'        => function ($attribute, $value, $fail) {
 
                 $date = Carbon::parse($value);

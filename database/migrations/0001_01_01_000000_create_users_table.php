@@ -20,7 +20,7 @@ return new class () extends Migration {
             $table->string('password')->default(Hash::make(Str::password(20)));
             $table->string('phone')->nullable();
             $table->text('address')->nullable();
-            $table->string('profissional_summary')->nullable();
+            $table->string('professional_summary')->nullable();
             $table->enum('role', ['admin', 'member'])->default('member');
             $table->rememberToken();
             $table->timestamps();
