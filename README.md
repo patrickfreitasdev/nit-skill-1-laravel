@@ -42,22 +42,17 @@ A Laravel-based web application for managing events and members (not admins). Th
    composer install
    ```
 
-3. Install JavaScript dependencies:
-   ```bash
-   npm install
-   ```
-
-4. Create a copy of the `.env.example` file:
+3. Create a copy of the `.env.example` file:
    ```bash
    cp .env.example .env
    ```
 
-5. Generate an application key:
+4. Generate an application key:
    ```bash
    php artisan key:generate
    ```
 
-6. Configure your database in the `.env` file:
+5. Configure your database in the `.env` file:
    ```
    DB_CONNECTION=mysql
    DB_HOST=127.0.0.1
@@ -67,23 +62,22 @@ A Laravel-based web application for managing events and members (not admins). Th
    DB_PASSWORD=your_database_password
    ```
 
-7. Run database migrations:
+6. Run database migrations:
    ```bash
    php artisan migrate
    ```
 
-8. Create a symbolic link for storage:
+7. Create a symbolic link for storage:
    ```bash
    php artisan storage:link
    ```
 
-9. No frontend build step required (using plain Bootstrap):
+8. No frontend build step required (using plain Bootstrap):
    ```bash
    # The project uses plain Bootstrap with Blade templates
    # No compilation needed
    ```
-
-10. Start the development server:
+9. Start the development server:
     ```bash
     php artisan serve
     ```
@@ -149,7 +143,7 @@ Run tests with Laravel's artisan commands:
 php artisan config:clear --ansi
 ```
 
-2. Run the tests:
+1. Run the tests:
 ```bash
 php artisan test
 ```

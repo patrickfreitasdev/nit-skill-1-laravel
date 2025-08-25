@@ -19,7 +19,7 @@
     <!--====== Components Style css ======-->
     <link rel="stylesheet" href="https://cdn.ayroui.com/1.0/css/starter.css" />
 
-    <link rel="stylesheet" href="{{ asset('css/app.css')  }}">
+    <link rel="stylesheet" href="{{ asset('storage/css/app.css')  }}">
 
     <!--====== Toast css ======-->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
